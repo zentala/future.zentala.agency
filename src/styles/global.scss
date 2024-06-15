@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    @apply bg-white text-black; // Domyślne tło i kolor tekstu
+  }
+  
+  .dark body {
+    @apply bg-black text-white; // Tło i kolor tekstu w trybie ciemnym
+  }
