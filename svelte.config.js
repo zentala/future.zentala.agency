@@ -5,12 +5,14 @@ import preprocess from 'svelte-preprocess';
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
   preprocess: [
-    vitePreprocess(),
+    vitePreprocess({
+      postcss: true,
+    }),
     preprocess({
       postcss: true,
-      scss: {
-        prependData: `@import 'src/styles/variables.scss';`
-      },
+      // scss: {
+      //   prependData: `@import 'src/styles/variables.scss';`
+      // },
     })
   ],
 
@@ -20,6 +22,9 @@ const config = {
     }),
     paths: {
       base: ''
+    },
+    alias: {
+      $lib: 'src/lib'
     }
   }
 };

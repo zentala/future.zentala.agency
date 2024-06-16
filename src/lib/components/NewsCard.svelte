@@ -1,30 +1,47 @@
-<script>
-  export let item;
+<script lang="ts">
+  export let post: {
+    id: number;
+    type: string;
+    title: string;
+    content: any;
+    created_at: string;
+    topics: Array<{
+      specificity: number;
+      topic: {
+        name: string;
+      };
+    }>;
+  };
 </script>
 
 <style>
   .news-card {
-    @apply p-4 bg-white rounded shadow;
+    @apply p-4 bg-black border border-gray-800 -mx-1; 
   }
-  .news-card video, .news-card iframe {
+  .news-card iframe {
     @apply w-full h-48;
   }
 </style>
 
 <div class="news-card">
-  <p>{item.date}</p>
+  <p>{post.created_at}</p>
   <div>
-    {#if item.type === 'video'}
-      <iframe src={item.content} frameborder="0" allowfullscreen></iframe>
-    {:else if item.type === 'link'}
-      <a href={item.content} target="_blank" rel="noopener noreferrer">{item.content}</a>
-    {:else if item.type === 'note'}
-      <p>{item.content}</p>
+    {#if post.type === 'video'}
+      <iframe src={post.content.url} frameborder="0" allowfullscreen></iframe>
+      <p>{post.content.description}</p>
+    {:else if post.type === 'link'}
+      <a href={post.content.url} target="_blank" rel="noopener noreferrer">{post.content.url}</a>
+      <p>{post.content.description}</p>
+    {:else if post.type === 'note'}
+      <p>{post.content.text}</p>
     {/if}
   </div>
   <div>
-    {#each item.tags as tag}
-      <span class="bg-gray-200 text-gray-800 px-2 py-1 rounded mr-2">{tag}</span>
-    {/each}
+    <strong>Topics:</strong>
+    <ul>
+      {#each post.topics as topic}
+        <li>{topic.topic.name} (Specificity: {topic.specificity})</li>
+      {/each}
+    </ul>
   </div>
 </div>

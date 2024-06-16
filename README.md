@@ -12,3 +12,4 @@ tailwind
 scss
 svelte
 github pages
+supabaase
